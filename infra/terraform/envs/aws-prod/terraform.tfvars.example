@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars and fill in. Never commit terraform.tfvars.
+name_prefix     = "tokenprofiler-prod"
+hostname        = "tokenprofiler.example.com"
+route53_zone_id = "Z0000000000000000000"
+alarm_email     = "oncall@example.com"
+
+# Optional sizing.
+# api_cpu    = 8192
+# api_memory = 32768
