@@ -109,6 +109,20 @@ LABELS = {
 }
 
 
+# Each project only gets the prompts its own traffic actually uses, so no prompt row in the UI
+# is empty. The workloads in `workload.py` decide which prompts a project calls.
+PROJECT_PROMPTS = {
+    "Customer Copilot": (
+        "support-triage",
+        "refund-policy-answer",
+        "research-planner",
+        "sql-generator",
+        "kb-summarizer",
+    ),
+    "Internal Tools": ("code-review-summary", "kb-summarizer"),
+}
+
+
 async def _already_seeded(container: Container) -> bool:
     async with container.db.session() as session:
         return await UserRepository(session).by_email(PEOPLE[0][0]) is not None
@@ -188,7 +202,8 @@ async def _seed(container: Container, password: str) -> str:
     async with container.db.session() as session:
         prompts = PromptService(session)
         for project in (copilot, tools):
-            for name, versions in PROMPTS.items():
+            for name in PROJECT_PROMPTS[project.name]:
+                versions = PROMPTS[name]
                 for template, message in versions:
                     await prompts.create_version(
                         principal,
