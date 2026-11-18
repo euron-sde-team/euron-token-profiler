@@ -46,7 +46,11 @@ export function Waterfall({
           {ticks.map((tick) => (
             <span
               key={tick.at}
-              className="text-subtle tabular absolute top-2 -translate-x-1/2 whitespace-nowrap first:translate-x-0 last:-translate-x-full"
+              className={cn(
+                "text-subtle tabular absolute top-2 -translate-x-1/2 whitespace-nowrap first:translate-x-0 last:-translate-x-full",
+                // Quarter marks crowd a phone's narrow timeline: keep the start, middle and end.
+                (tick.at === 0.25 || tick.at === 0.75) && "hidden sm:inline",
+              )}
               style={{ left: `${tick.at * 100}%` }}
             >
               {tick.label}
