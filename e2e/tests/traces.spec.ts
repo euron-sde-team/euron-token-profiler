@@ -37,7 +37,7 @@ test("filter failures, open a trace and read its span tree", async ({ page }) =>
   await expect(spans.getByRole("listitem")).toHaveCount(rows);
 
   await spans
-    .getByRole("button", { name: /web_search/ })
+    .getByRole("button", { name: /^web_search/ })
     .first()
     .click();
   await expect(page).toHaveURL(/span=/);

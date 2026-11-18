@@ -27,6 +27,6 @@ test("switching project changes the numbers", async ({ page }) => {
   const select = page.getByLabel("Project");
   await expect(select.locator("option")).toHaveText(["Customer Copilot", "Internal Tools"]);
   await select.selectOption({ label: "Internal Tools" });
-  await expect(page.getByText("Internal Tools", { exact: false }).first()).toBeVisible();
+  await expect(page.getByText("How Internal Tools is doing")).toBeVisible();
   await select.selectOption({ label: "Customer Copilot" });
 });
