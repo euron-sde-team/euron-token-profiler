@@ -331,9 +331,9 @@ decompressed bodies are bounded, and the process refuses to start in production 
 | API unit (pytest)                                                                     | 55       | `make test`             |
 | SDK unit (pytest)                                                                     | 13       | `make test`             |
 | Web unit (Vitest)                                                                     | 39       | `make test`             |
-| API integration (real PostgreSQL, Valkey, Floci; real application over ASGI)          | 42       | `make test-integration` |
+| API integration (real PostgreSQL, Valkey, Floci; real application over ASGI)          | 44       | `make test-integration` |
 | Browser end-to-end (Playwright, Chromium)                                             | 21       | `make e2e`              |
-| QA crawl (every page at desktop and mobile, plus dark; console, requests, links, axe) | 4 crawls | `make qa`               |
+| QA crawl (every page at desktop and mobile, plus dark; console, requests, links, axe) | 5 crawls | `make qa`               |
 
 Static checks: ruff, mypy in strict mode, ESLint, Prettier and `tsc` are clean; `make sanitize` and
 `make tf-fmt tf-validate` are clean for all three environments, tflint is clean and checkov reports no failed
