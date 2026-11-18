@@ -6,4 +6,5 @@
 # *                                          @<org>/<maintainers-team>
 # /infra/                                    @<org>/<maintainers-team>
 # /apps/api/src/tokenprofiler/core/security.py   @<org>/<security-team>
-# /apps/api/src/tokenprofiler/integrations/fetch.py  @<org>/<security-team>
+# /apps/api/src/tokenprofiler/ingest/redaction.py  @<org>/<security-team>
+# /apps/api/src/tokenprofiler/services/webhooks.py   @<org>/<security-team>

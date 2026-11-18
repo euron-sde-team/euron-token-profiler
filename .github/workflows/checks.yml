@@ -1,4 +1,4 @@
-# Fast checks run on this repository: lint, typecheck and unit tests for the API and
+# Fast checks run on this repository: lint, typecheck and unit tests for the API, the SDK and
 # the web app, Terraform formatting and validation, the stack definitions, secret scanning
 # and the sanitization scan. The full pipeline (integration tests on PostgreSQL, Valkey and
 # Floci, image builds, the browser suites, security scans) lives in .github/workflows-full/:
@@ -36,6 +36,25 @@ jobs:
       - run: uv run ruff format --check .
       - run: uv run mypy
       - run: uv run pytest tests/unit -q
+
+  sdk:
+    name: "sdk: lint, typecheck, unit tests"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: sdk/python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: sdk/python/uv.lock
+      - run: uv sync --frozen
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run mypy
+      - run: uv run pytest -q
 
   web:
     name: "web: lint, typecheck, unit tests"
