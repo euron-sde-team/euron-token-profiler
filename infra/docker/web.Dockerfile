@@ -27,7 +27,7 @@ RUN pnpm --filter @tokenprofiler/web build
 
 FROM ${NODE_IMAGE} AS runtime
 LABEL org.opencontainers.image.title="Euron TokenProfiler dashboard" \
-      org.opencontainers.image.description="Dashboard for the Euron TokenProfiler registry and gateway" \
+      org.opencontainers.image.description="LLM observability dashboard: traces, costs, prompts, budgets and alerts" \
       org.opencontainers.image.source="https://github.com/euron-sde-team/euron-token-profiler" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.vendor="ENGAGESPHERE TECHNOLOGY PRIVATE LIMITED"
