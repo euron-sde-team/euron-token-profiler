@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="1100" height="520" role="img" aria-labelledby="t d" font-family="Inter, Helvetica, Arial, sans-serif">
+  <title id="t">TokenProfiler architecture</title>
+  <desc id="d">SDKs and OpenTelemetry exporters send traces to the API; the dashboard reads through the API; the worker evaluates alerts and enforces retention; PostgreSQL, Valkey and S3 hold state.</desc>
+  <style>
+    .box { fill: #f1f7f6; stroke: #0f766e; stroke-width: 1.5; }
+    .store { fill: #eef2ff; stroke: #4f46e5; stroke-width: 1.5; }
+    .ext { fill: #fff7ed; stroke: #c2680a; stroke-width: 1.5; }
+    .t { font-size: 16px; fill: #0b1f1d; font-weight: 600; }
+    .s { font-size: 12.5px; fill: #35504d; }
+    .a { stroke: #35504d; stroke-width: 1.6; fill: none; marker-end: url(#arrow); }
+    .l { font-size: 12px; fill: #35504d; }
+    @media (prefers-color-scheme: dark) {
+      .box { fill: #0f2a28; stroke: #2dd4bf; } .store { fill: #1b1d3d; stroke: #818cf8; } .ext { fill: #2a2210; stroke: #fbbf24; }
+      .t { fill: #e6f4f2; } .s, .l { fill: #a9c6c2; } .a { stroke: #a9c6c2; }
+    }
+  </style>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#35504d"/></marker></defs>
+
+  <rect class="ext" x="30" y="40" width="210" height="64" rx="12"/><text class="t" x="50" y="68">Python SDK</text><text class="s" x="50" y="88">@observe, spans, prompts</text>
+  <rect class="ext" x="30" y="130" width="210" height="64" rx="12"/><text class="t" x="50" y="158">OpenTelemetry</text><text class="s" x="50" y="178">OTLP JSON or protobuf</text>
+  <rect class="ext" x="30" y="260" width="210" height="64" rx="12"/><text class="t" x="50" y="288">Dashboard</text><text class="s" x="50" y="308">Next.js, session cookie</text>
+
+  <rect class="box" x="360" y="60" width="300" height="270" rx="14"/>
+  <text class="t" x="380" y="90">API</text>
+  <text class="s" x="380" y="116">Ingest plane (/v1, project keys)</text>
+  <text class="s" x="380" y="138">parse, sample, price, mask, store</text>
+  <text class="s" x="380" y="168">Control plane (/api/v1, sessions)</text>
+  <text class="s" x="380" y="190">traces, metrics, prompts, prices</text>
+  <text class="s" x="380" y="212">budgets, alerts, people, audit</text>
+  <text class="s" x="380" y="242">Per-key rate limits, request ids,</text>
+  <text class="s" x="380" y="262">health probes, Prometheus metrics</text>
+
+  <rect class="box" x="360" y="380" width="300" height="100" rx="14"/>
+  <text class="t" x="380" y="410">Worker</text>
+  <text class="s" x="380" y="434">alert evaluation every 30 s</text>
+  <text class="s" x="380" y="454">retention and archive, Valkey locks</text>
+
+  <rect class="store" x="820" y="40" width="250" height="70" rx="12"/><text class="t" x="840" y="68">PostgreSQL 16</text><text class="s" x="840" y="90">traces, spans, prompts, prices</text>
+  <rect class="store" x="820" y="150" width="250" height="70" rx="12"/><text class="t" x="840" y="178">Valkey 8</text><text class="s" x="840" y="200">limits, sessions, locks, cache</text>
+  <rect class="store" x="820" y="260" width="250" height="70" rx="12"/><text class="t" x="840" y="288">S3 archive (Floci locally)</text><text class="s" x="840" y="310">gzip NDJSON, SSE-KMS</text>
+  <rect class="ext" x="820" y="410" width="250" height="70" rx="12"/><text class="t" x="840" y="438">Your webhook</text><text class="s" x="840" y="460">alert notifications</text>
+
+  <path class="a" d="M240 72 L360 112"/><path class="a" d="M240 162 L360 150"/><path class="a" d="M240 292 L360 250"/>
+  <path class="a" d="M660 90 L820 75"/><path class="a" d="M660 180 L820 185"/>
+  <path class="a" d="M510 380 L510 330"/>
+  <path class="a" d="M660 420 L820 305"/><path class="a" d="M660 440 L820 445"/>
+  <path class="a" d="M660 400 L840 112" stroke-dasharray="4 4"/>
+  <text class="l" x="262" y="108">traces</text><text class="l" x="262" y="276">reads</text>
+  <text class="l" x="720" y="420">archive</text><text class="l" x="708" y="468">notify</text>
+</svg>
