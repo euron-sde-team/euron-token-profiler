@@ -1,13 +1,13 @@
 # Testing
 
-| Suite              | Command                  | What it covers                                                      |
-| ------------------ | ------------------------ | ------------------------------------------------------------------- |
-| API unit           | `make test`              | Parsing, redaction, pricing, sampling, attribution, period maths, workload |
-| SDK unit           | `make test`              | Span nesting, `@observe`, retries, queue overflow, prompts          |
-| Web unit           | `make test`              | Formatting, URL state, the span tree layout, snippets               |
-| API integration    | `make test-integration`  | The whole API on real PostgreSQL, Valkey and Floci                  |
-| Browser journeys   | `make e2e`               | Sign in, filters, trace detail, keys, prompts, budgets, settings    |
-| QA crawl           | `make qa`                | Every page at 1440 and 390 px, light and dark; console, requests, links, axe |
+| Suite            | Command                 | What it covers                                                               |
+| ---------------- | ----------------------- | ---------------------------------------------------------------------------- |
+| API unit         | `make test`             | Parsing, redaction, pricing, sampling, attribution, period maths, workload   |
+| SDK unit         | `make test`             | Span nesting, `@observe`, retries, queue overflow, prompts                   |
+| Web unit         | `make test`             | Formatting, URL state, the span tree layout, snippets                        |
+| API integration  | `make test-integration` | The whole API on real PostgreSQL, Valkey and Floci                           |
+| Browser journeys | `make e2e`              | Sign in, filters, trace detail, keys, prompts, budgets, settings             |
+| QA crawl         | `make qa`               | Every page at 1440 and 390 px, light and dark; console, requests, links, axe |
 
 ## Integration tests
 

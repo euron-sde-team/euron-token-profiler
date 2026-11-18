@@ -7,16 +7,16 @@
 - `GET /metrics` on the API and on the worker port (`WORKER_METRICS_PORT`) in Prometheus format.
   Keep it off the public load balancer. Useful series:
 
-| Metric | Use |
-| ------ | --- |
-| `tokenprofiler_ingest_batches_total{protocol,outcome}` | Ingest volume by protocol |
-| `tokenprofiler_ingest_spans_total{disposition}` | Stored versus sampled out |
-| `tokenprofiler_ingest_duration_seconds` | The latency that matters when sizing |
-| `tokenprofiler_redactions_total` | Masking activity |
-| `tokenprofiler_rate_limited_total{limit}` | Keys hitting the limit |
-| `tokenprofiler_dashboard_cache_total{result}` | Cache hit rate |
-| `tokenprofiler_alerts_fired_total{kind}`, `tokenprofiler_webhook_deliveries_total{outcome}` | Alerting |
-| `tokenprofiler_retention_traces_deleted_total`, `..._archived_total` | Retention progress |
+| Metric                                                                                      | Use                                  |
+| ------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `tokenprofiler_ingest_batches_total{protocol,outcome}`                                      | Ingest volume by protocol            |
+| `tokenprofiler_ingest_spans_total{disposition}`                                             | Stored versus sampled out            |
+| `tokenprofiler_ingest_duration_seconds`                                                     | The latency that matters when sizing |
+| `tokenprofiler_redactions_total`                                                            | Masking activity                     |
+| `tokenprofiler_rate_limited_total{limit}`                                                   | Keys hitting the limit               |
+| `tokenprofiler_dashboard_cache_total{result}`                                               | Cache hit rate                       |
+| `tokenprofiler_alerts_fired_total{kind}`, `tokenprofiler_webhook_deliveries_total{outcome}` | Alerting                             |
+| `tokenprofiler_retention_traces_deleted_total`, `..._archived_total`                        | Retention progress                   |
 
 ## Routine tasks
 

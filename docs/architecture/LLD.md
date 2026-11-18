@@ -70,19 +70,19 @@ are GIN indexed, so the list filters never touch `spans`.
   the same dictionary shape (ids arrive base64 and are converted to hex). `Content-Encoding: gzip`
   and `deflate` are inflated with a bounded decompressor. Mapping:
 
-| Span field        | Attributes read, in order                                                          |
-| ----------------- | ---------------------------------------------------------------------------------- |
-| kind              | `tokenprofiler.span.kind`, `openinference.span.kind`, `gen_ai.operation.name`, `traceloop.span.kind`, else model plus usage means generation |
-| model             | `gen_ai.response.model`, `gen_ai.request.model`, `llm.model_name`, `ai.model.id`   |
-| input tokens      | `gen_ai.usage.input_tokens`, `gen_ai.usage.prompt_tokens`, `llm.token_count.prompt` |
-| output tokens     | `gen_ai.usage.output_tokens`, `gen_ai.usage.completion_tokens`, `llm.token_count.completion` |
-| cached tokens     | `gen_ai.usage.cache_read_input_tokens`, `gen_ai.usage.cached_input_tokens`         |
-| agent, tool       | `gen_ai.agent.name`, `gen_ai.tool.name` (or `tokenprofiler.*.name`)               |
-| prompt            | `tokenprofiler.prompt.name`, `tokenprofiler.prompt.version`                        |
-| user, session     | `user.id`, `enduser.id`; `session.id`, `gen_ai.conversation.id`                    |
-| environment       | `tokenprofiler.environment`, `deployment.environment(.name)`                       |
-| input, output     | `tokenprofiler.input`, `gen_ai.input.messages`, `gen_ai.prompt`, `input.value` (and the output twins) |
-| status            | OTLP status code 2, `error.type`, or an `exception` event                          |
+| Span field    | Attributes read, in order                                                                                                                    |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| kind          | `tokenprofiler.span.kind`, `openinference.span.kind`, `gen_ai.operation.name`, `traceloop.span.kind`, else model plus usage means generation |
+| model         | `gen_ai.response.model`, `gen_ai.request.model`, `llm.model_name`, `ai.model.id`                                                             |
+| input tokens  | `gen_ai.usage.input_tokens`, `gen_ai.usage.prompt_tokens`, `llm.token_count.prompt`                                                          |
+| output tokens | `gen_ai.usage.output_tokens`, `gen_ai.usage.completion_tokens`, `llm.token_count.completion`                                                 |
+| cached tokens | `gen_ai.usage.cache_read_input_tokens`, `gen_ai.usage.cached_input_tokens`                                                                   |
+| agent, tool   | `gen_ai.agent.name`, `gen_ai.tool.name` (or `tokenprofiler.*.name`)                                                                          |
+| prompt        | `tokenprofiler.prompt.name`, `tokenprofiler.prompt.version`                                                                                  |
+| user, session | `user.id`, `enduser.id`; `session.id`, `gen_ai.conversation.id`                                                                              |
+| environment   | `tokenprofiler.environment`, `deployment.environment(.name)`                                                                                 |
+| input, output | `tokenprofiler.input`, `gen_ai.input.messages`, `gen_ai.prompt`, `input.value` (and the output twins)                                        |
+| status        | OTLP status code 2, `error.type`, or an `exception` event                                                                                    |
 
 The response is an `ExportTraceServiceResponse`; rejected spans appear under `partialSuccess`.
 
@@ -125,7 +125,7 @@ hours or a day that keeps the chart near 72 points (`date_bin` on a fixed origin
   `trace_count`) over a trailing window with a threshold. Fewer traces than `min_traces` means no
   data, never an alert (except `trace_count`, which exists to notice silence).
 - One event per source is open at a time (a partial unique index on `source_id where state =
-  'firing'`). A firing source opens an event, an escalation (warning to critical) updates it and
+'firing'`). A firing source opens an event, an escalation (warning to critical) updates it and
   notifies again, recovery resolves it. Notifications POST JSON to the project webhook
   (`alert.firing`, `alert.escalated`, `alert.resolved`); the URL is sealed at rest, validated on
   save and again on delivery (public addresses only), with a timeout and no redirects.

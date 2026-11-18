@@ -26,13 +26,13 @@ every project.
 
 ## Users and what they do
 
-| Person    | Needs                                                                     | Where                          |
-| --------- | ------------------------------------------------------------------------- | ------------------------------ |
-| Developer | Send traces, see why a request was slow, expensive or wrong               | SDK, traces, trace detail      |
-| Prompt owner | Ship prompt versions, see what each cost and how it performs           | Prompts                        |
-| Team lead | Know where spend goes, set limits, be told before a bill surprises them   | Overview, models, agents, budgets |
-| Security  | Keep PII and secrets out of storage, bound retention                      | Settings: privacy, retention   |
-| Operator  | Deploy, scale, back up, keep the system observable itself                 | Compose, Terraform, metrics    |
+| Person       | Needs                                                                   | Where                             |
+| ------------ | ----------------------------------------------------------------------- | --------------------------------- |
+| Developer    | Send traces, see why a request was slow, expensive or wrong             | SDK, traces, trace detail         |
+| Prompt owner | Ship prompt versions, see what each cost and how it performs            | Prompts                           |
+| Team lead    | Know where spend goes, set limits, be told before a bill surprises them | Overview, models, agents, budgets |
+| Security     | Keep PII and secrets out of storage, bound retention                    | Settings: privacy, retention      |
+| Operator     | Deploy, scale, back up, keep the system observable itself               | Compose, Terraform, metrics       |
 
 ## System context
 
@@ -132,11 +132,11 @@ these breakdowns adds up to the project total (the per-trace tests assert it).
 
 ## Quality attributes
 
-| Attribute       | Approach                                                                         |
-| --------------- | -------------------------------------------------------------------------------- |
+| Attribute       | Approach                                                                          |
+| --------------- | --------------------------------------------------------------------------------- |
 | Correctness     | Costs from a decimal price table; totals recomputed from spans; asserted in tests |
-| Privacy         | Masking before storage; payloads optional; archives encrypted                    |
-| Performance     | Denormalised totals, partial indexes, bounded counts, cached aggregates          |
-| Operability     | Health probes, metrics, graceful shutdown, advisory-locked migrations            |
-| Portability     | Everything on Compose and Floci; the same Terraform for AWS                      |
-| Maintainability | One job per layer, strict types, pure ingest logic with unit tests               |
+| Privacy         | Masking before storage; payloads optional; archives encrypted                     |
+| Performance     | Denormalised totals, partial indexes, bounded counts, cached aggregates           |
+| Operability     | Health probes, metrics, graceful shutdown, advisory-locked migrations             |
+| Portability     | Everything on Compose and Floci; the same Terraform for AWS                       |
+| Maintainability | One job per layer, strict types, pure ingest logic with unit tests                |

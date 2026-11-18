@@ -17,11 +17,11 @@ make demo    # people, two projects, prompts, budgets, alerts and two weeks of t
 
 The first `make up` takes a few minutes (image builds, Terraform provider download). Then open:
 
-| What      | Address                       |
-| --------- | ----------------------------- |
-| Dashboard | http://localhost:3210         |
-| API docs  | http://localhost:8210/docs    |
-| Ingest    | http://localhost:8210/v1      |
+| What      | Address                    |
+| --------- | -------------------------- |
+| Dashboard | http://localhost:3210      |
+| API docs  | http://localhost:8210/docs |
+| Ingest    | http://localhost:8210/v1   |
 
 `make env` writes `deploy/compose/.env` with random local-only secrets and the demo password
 (`TP_DEMO_PASSWORD`). `make demo` prints the sign-in emails and the ingest key of the demo project:
@@ -49,15 +49,15 @@ It appears under Traces within a minute with its cost computed from the price ta
 
 ## Everyday commands
 
-| Command                 | What it does                                             |
-| ----------------------- | -------------------------------------------------------- |
-| `make ps` / `make logs` | Stack status, tail logs (`SERVICE=api`)                  |
-| `make down`             | Stop everything and delete its volumes                   |
-| `make test`             | Unit tests (pytest for the API and SDK, Vitest)          |
-| `make test-integration` | API tests on real Postgres, Valkey and Floci             |
-| `make e2e` / `make qa`  | Playwright journeys; crawl every page at two widths      |
-| `make lint typecheck`   | ruff, ESLint, Prettier, mypy (strict), tsc               |
-| `make openapi`          | Regenerate `docs/api/openapi.json`                       |
+| Command                 | What it does                                        |
+| ----------------------- | --------------------------------------------------- |
+| `make ps` / `make logs` | Stack status, tail logs (`SERVICE=api`)             |
+| `make down`             | Stop everything and delete its volumes              |
+| `make test`             | Unit tests (pytest for the API and SDK, Vitest)     |
+| `make test-integration` | API tests on real Postgres, Valkey and Floci        |
+| `make e2e` / `make qa`  | Playwright journeys; crawl every page at two widths |
+| `make lint typecheck`   | ruff, ESLint, Prettier, mypy (strict), tsc          |
+| `make openapi`          | Regenerate `docs/api/openapi.json`                  |
 
 ## Developing without Docker for the app
 

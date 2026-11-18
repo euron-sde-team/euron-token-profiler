@@ -3,16 +3,16 @@
 One Terraform deployment module builds everything; `aws-dev` and `aws-prod` only choose sizes and
 safety switches.
 
-| Resource         | aws-dev                                                       | aws-prod                                                 |
-| ---------------- | ------------------------------------------------------------- | -------------------------------------------------------- |
-| Network          | 2 zones, one NAT gateway                                      | 3 zones, NAT per zone, KMS and Secrets Manager endpoints |
-| Database         | RDS PostgreSQL 16, single zone, 3 days of backups             | Multi-AZ, 14 days, deletion protection                   |
-| Cache            | ElastiCache for Valkey, no replica                            | one replica, automatic failover                          |
-| Trace archive    | S3 bucket, SSE-KMS, TLS only, versioned                       | same                                                     |
-| Compute          | ECS Fargate: api, worker, web                                 | larger tasks, more of them, autoscaling                  |
-| Edge             | ALB with HTTPS                                                | ALB with HTTPS and a WAF                                 |
-| Keys and secrets | one KMS key (rotation on), generated app secrets in Secrets Manager | same, longer recovery windows                      |
-| Observability    | CloudWatch logs, alarms to SNS, a dashboard                   | same, one year of logs                                   |
+| Resource         | aws-dev                                                             | aws-prod                                                 |
+| ---------------- | ------------------------------------------------------------------- | -------------------------------------------------------- |
+| Network          | 2 zones, one NAT gateway                                            | 3 zones, NAT per zone, KMS and Secrets Manager endpoints |
+| Database         | RDS PostgreSQL 16, single zone, 3 days of backups                   | Multi-AZ, 14 days, deletion protection                   |
+| Cache            | ElastiCache for Valkey, no replica                                  | one replica, automatic failover                          |
+| Trace archive    | S3 bucket, SSE-KMS, TLS only, versioned                             | same                                                     |
+| Compute          | ECS Fargate: api, worker, web                                       | larger tasks, more of them, autoscaling                  |
+| Edge             | ALB with HTTPS                                                      | ALB with HTTPS and a WAF                                 |
+| Keys and secrets | one KMS key (rotation on), generated app secrets in Secrets Manager | same, longer recovery windows                            |
+| Observability    | CloudWatch logs, alarms to SNS, a dashboard                         | same, one year of logs                                   |
 
 One host name serves the dashboard (`/`), the control plane (`/api/v1`), the docs, and ingest
 (`/v1`), so the session cookie is first-party and SDKs and exporters use the same URL. `/metrics`

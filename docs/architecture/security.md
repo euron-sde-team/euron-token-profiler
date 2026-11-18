@@ -2,13 +2,13 @@
 
 ## Who can do what
 
-| Actor            | Credential                          | Can                                                         |
-| ---------------- | ----------------------------------- | ----------------------------------------------------------- |
-| Viewer           | session                             | read projects, traces, dashboards, prompts, prices, budgets |
-| Member           | session                             | viewer, plus prompts, prices, budgets, rules, keys, redaction preview |
-| Admin            | session                             | member, plus people, projects, privacy, retention, webhook, archives, audit |
-| SDK or exporter  | project API key (`tp_...`)          | send traces to one project, fetch its prompts, nothing else |
-| Worker           | database and Valkey access          | evaluate alerts, enforce retention, write the archive       |
+| Actor           | Credential                 | Can                                                                         |
+| --------------- | -------------------------- | --------------------------------------------------------------------------- |
+| Viewer          | session                    | read projects, traces, dashboards, prompts, prices, budgets                 |
+| Member          | session                    | viewer, plus prompts, prices, budgets, rules, keys, redaction preview       |
+| Admin           | session                    | member, plus people, projects, privacy, retention, webhook, archives, audit |
+| SDK or exporter | project API key (`tp_...`) | send traces to one project, fetch its prompts, nothing else                 |
+| Worker          | database and Valkey access | evaluate alerts, enforce retention, write the archive                       |
 
 People see every project; projects are a data boundary for keys, not an access-control boundary.
 Add a deployment per tenant when tenants must not see each other.
