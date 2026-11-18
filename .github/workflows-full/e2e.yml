@@ -1,7 +1,7 @@
 name: e2e
 
-# The full stack on the Floci AWS emulator: Terraform provisions the models bucket, KMS and
-# Secrets Manager, the demo seed installs models, creates keys and a week of traffic, then
+# The full stack on the Floci AWS emulator: Terraform provisions the archive bucket, KMS and
+# Secrets Manager, the demo seed creates projects, prompts, budgets and two weeks of traces, then
 # Playwright drives the web app and the QA crawl checks every page at desktop and mobile
 # widths with axe.
 on:
