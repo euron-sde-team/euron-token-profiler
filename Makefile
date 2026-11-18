@@ -6,6 +6,7 @@ COMPOSE_DIR := deploy/compose
 FLOCI       := docker compose --env-file $(COMPOSE_DIR)/.env -f $(COMPOSE_DIR)/compose.yaml -f $(COMPOSE_DIR)/compose.floci.yaml
 AWS_LOCAL   := docker compose --env-file $(COMPOSE_DIR)/.env -f $(COMPOSE_DIR)/compose.yaml -f $(COMPOSE_DIR)/compose.aws.yaml
 API         := uv --directory apps/api run
+SDK         := uv --directory sdk/python run
 TF_IMAGE    := hashicorp/terraform:1.16.6
 TF_ENVS     := local-floci aws-dev aws-prod
 # Use a local terraform when installed, otherwise the pinned container (providers cached in
@@ -62,19 +63,23 @@ ps: ## Show stack status
 
 lint: ## Lint and check formatting (ruff, ESLint, Prettier)
 	$(API) ruff check . && $(API) ruff format --check .
+	$(SDK) ruff check . && $(SDK) ruff format --check .
 	pnpm lint
 	pnpm format:check
 
 format: ## Format every file (ruff, Prettier)
 	$(API) ruff check --fix . && $(API) ruff format .
+	$(SDK) ruff check --fix . && $(SDK) ruff format .
 	pnpm format
 
 typecheck: ## Typecheck (mypy strict on the server, tsc)
 	$(API) mypy
+	$(SDK) mypy
 	pnpm typecheck
 
 test: ## Unit tests (pytest for the server, Vitest for the web app)
 	$(API) pytest tests/unit -q
+	$(SDK) pytest -q
 	pnpm test
 
 test-integration: ## API integration tests against real Postgres, Valkey and Floci (started if needed)
