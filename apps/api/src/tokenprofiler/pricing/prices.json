@@ -1,0 +1,374 @@
+{
+ "version": "2026-11",
+ "note": "List prices in USD per million tokens. Verify against your provider invoice and override per project where you pay less.",
+ "prices": [
+  {
+   "model": "gpt-5",
+   "provider": "openai",
+   "input_per_mtok": 1.25,
+   "output_per_mtok": 10,
+   "cached_input_per_mtok": 0.125,
+   "pattern": "^gpt-5(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gpt-5-mini",
+   "provider": "openai",
+   "input_per_mtok": 0.25,
+   "output_per_mtok": 2,
+   "cached_input_per_mtok": 0.025,
+   "pattern": "^gpt-5-mini(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gpt-5-nano",
+   "provider": "openai",
+   "input_per_mtok": 0.05,
+   "output_per_mtok": 0.4,
+   "cached_input_per_mtok": 0.005,
+   "pattern": "^gpt-5-nano(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gpt-4.1",
+   "provider": "openai",
+   "input_per_mtok": 2,
+   "output_per_mtok": 8,
+   "cached_input_per_mtok": 0.5,
+   "pattern": "^gpt-4\\.1(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gpt-4.1-mini",
+   "provider": "openai",
+   "input_per_mtok": 0.4,
+   "output_per_mtok": 1.6,
+   "cached_input_per_mtok": 0.1,
+   "pattern": "^gpt-4\\.1-mini(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gpt-4.1-nano",
+   "provider": "openai",
+   "input_per_mtok": 0.1,
+   "output_per_mtok": 0.4,
+   "cached_input_per_mtok": 0.025,
+   "pattern": "^gpt-4\\.1-nano(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gpt-4o",
+   "provider": "openai",
+   "input_per_mtok": 2.5,
+   "output_per_mtok": 10,
+   "cached_input_per_mtok": 1.25,
+   "pattern": "^gpt-4o(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gpt-4o-mini",
+   "provider": "openai",
+   "input_per_mtok": 0.15,
+   "output_per_mtok": 0.6,
+   "cached_input_per_mtok": 0.075,
+   "pattern": "^gpt-4o-mini(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "o3",
+   "provider": "openai",
+   "input_per_mtok": 2,
+   "output_per_mtok": 8,
+   "cached_input_per_mtok": 0.5,
+   "pattern": "^o3(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "o3-mini",
+   "provider": "openai",
+   "input_per_mtok": 1.1,
+   "output_per_mtok": 4.4,
+   "cached_input_per_mtok": 0.55,
+   "pattern": "^o3-mini(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "o4-mini",
+   "provider": "openai",
+   "input_per_mtok": 1.1,
+   "output_per_mtok": 4.4,
+   "cached_input_per_mtok": 0.275,
+   "pattern": "^o4-mini(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gpt-4-turbo",
+   "provider": "openai",
+   "input_per_mtok": 10,
+   "output_per_mtok": 30,
+   "cached_input_per_mtok": null,
+   "pattern": "^gpt-4-turbo(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gpt-3.5-turbo",
+   "provider": "openai",
+   "input_per_mtok": 0.5,
+   "output_per_mtok": 1.5,
+   "cached_input_per_mtok": null,
+   "pattern": "^gpt-3\\.5-turbo(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "text-embedding-3-small",
+   "provider": "openai",
+   "input_per_mtok": 0.02,
+   "output_per_mtok": 0,
+   "cached_input_per_mtok": null,
+   "pattern": "^text-embedding-3-small(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "text-embedding-3-large",
+   "provider": "openai",
+   "input_per_mtok": 0.13,
+   "output_per_mtok": 0,
+   "cached_input_per_mtok": null,
+   "pattern": "^text-embedding-3-large(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "text-embedding-ada-002",
+   "provider": "openai",
+   "input_per_mtok": 0.1,
+   "output_per_mtok": 0,
+   "cached_input_per_mtok": null,
+   "pattern": "^text-embedding-ada-002(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "claude-opus-4-1",
+   "provider": "anthropic",
+   "input_per_mtok": 15,
+   "output_per_mtok": 75,
+   "cached_input_per_mtok": 1.5,
+   "pattern": "^claude-opus-4-1(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "claude-opus-4",
+   "provider": "anthropic",
+   "input_per_mtok": 15,
+   "output_per_mtok": 75,
+   "cached_input_per_mtok": 1.5,
+   "pattern": "^claude-opus-4(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "claude-sonnet-4-5",
+   "provider": "anthropic",
+   "input_per_mtok": 3,
+   "output_per_mtok": 15,
+   "cached_input_per_mtok": 0.3,
+   "pattern": "^claude-sonnet-4-5(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "claude-sonnet-4",
+   "provider": "anthropic",
+   "input_per_mtok": 3,
+   "output_per_mtok": 15,
+   "cached_input_per_mtok": 0.3,
+   "pattern": "^claude-sonnet-4(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "claude-3-7-sonnet",
+   "provider": "anthropic",
+   "input_per_mtok": 3,
+   "output_per_mtok": 15,
+   "cached_input_per_mtok": 0.3,
+   "pattern": "^claude-3-7-sonnet(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "claude-3-5-sonnet",
+   "provider": "anthropic",
+   "input_per_mtok": 3,
+   "output_per_mtok": 15,
+   "cached_input_per_mtok": 0.3,
+   "pattern": "^claude-3-5-sonnet(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "provider": "anthropic",
+   "input_per_mtok": 1,
+   "output_per_mtok": 5,
+   "cached_input_per_mtok": 0.1,
+   "pattern": "^claude-haiku-4-5(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "claude-3-5-haiku",
+   "provider": "anthropic",
+   "input_per_mtok": 0.8,
+   "output_per_mtok": 4,
+   "cached_input_per_mtok": 0.08,
+   "pattern": "^claude-3-5-haiku(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "claude-3-haiku",
+   "provider": "anthropic",
+   "input_per_mtok": 0.25,
+   "output_per_mtok": 1.25,
+   "cached_input_per_mtok": 0.03,
+   "pattern": "^claude-3-haiku(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gemini-2.5-pro",
+   "provider": "google",
+   "input_per_mtok": 1.25,
+   "output_per_mtok": 10,
+   "cached_input_per_mtok": 0.31,
+   "pattern": "^gemini-2\\.5-pro(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gemini-2.5-flash",
+   "provider": "google",
+   "input_per_mtok": 0.3,
+   "output_per_mtok": 2.5,
+   "cached_input_per_mtok": 0.075,
+   "pattern": "^gemini-2\\.5-flash(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gemini-2.5-flash-lite",
+   "provider": "google",
+   "input_per_mtok": 0.1,
+   "output_per_mtok": 0.4,
+   "cached_input_per_mtok": 0.025,
+   "pattern": "^gemini-2\\.5-flash-lite(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gemini-2.0-flash",
+   "provider": "google",
+   "input_per_mtok": 0.1,
+   "output_per_mtok": 0.4,
+   "cached_input_per_mtok": 0.025,
+   "pattern": "^gemini-2\\.0-flash(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "gemini-embedding-001",
+   "provider": "google",
+   "input_per_mtok": 0.15,
+   "output_per_mtok": 0,
+   "cached_input_per_mtok": null,
+   "pattern": "^gemini-embedding-001(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "mistral-large",
+   "provider": "mistral",
+   "input_per_mtok": 2,
+   "output_per_mtok": 6,
+   "cached_input_per_mtok": null,
+   "pattern": "^mistral-large(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "mistral-medium",
+   "provider": "mistral",
+   "input_per_mtok": 0.4,
+   "output_per_mtok": 2,
+   "cached_input_per_mtok": null,
+   "pattern": "^mistral-medium(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "mistral-small",
+   "provider": "mistral",
+   "input_per_mtok": 0.1,
+   "output_per_mtok": 0.3,
+   "cached_input_per_mtok": null,
+   "pattern": "^mistral-small(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "codestral",
+   "provider": "mistral",
+   "input_per_mtok": 0.3,
+   "output_per_mtok": 0.9,
+   "cached_input_per_mtok": null,
+   "pattern": "^codestral(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "mistral-embed",
+   "provider": "mistral",
+   "input_per_mtok": 0.1,
+   "output_per_mtok": 0,
+   "cached_input_per_mtok": null,
+   "pattern": "^mistral-embed(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "llama-3.3-70b-versatile",
+   "provider": "meta",
+   "input_per_mtok": 0.59,
+   "output_per_mtok": 0.79,
+   "cached_input_per_mtok": null,
+   "pattern": "^llama-3\\.3-70b-versatile(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "llama-3.1-8b-instant",
+   "provider": "meta",
+   "input_per_mtok": 0.05,
+   "output_per_mtok": 0.08,
+   "cached_input_per_mtok": null,
+   "pattern": "^llama-3\\.1-8b-instant(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "llama-3.1-405b-instruct",
+   "provider": "meta",
+   "input_per_mtok": 3,
+   "output_per_mtok": 3,
+   "cached_input_per_mtok": null,
+   "pattern": "^llama-3\\.1-405b-instruct(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "deepseek-chat",
+   "provider": "deepseek",
+   "input_per_mtok": 0.27,
+   "output_per_mtok": 1.1,
+   "cached_input_per_mtok": 0.07,
+   "pattern": "^deepseek-chat(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "deepseek-reasoner",
+   "provider": "deepseek",
+   "input_per_mtok": 0.55,
+   "output_per_mtok": 2.19,
+   "cached_input_per_mtok": 0.14,
+   "pattern": "^deepseek-reasoner(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "command-r-plus",
+   "provider": "cohere",
+   "input_per_mtok": 2.5,
+   "output_per_mtok": 10,
+   "cached_input_per_mtok": null,
+   "pattern": "^command-r-plus(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "command-r",
+   "provider": "cohere",
+   "input_per_mtok": 0.15,
+   "output_per_mtok": 0.6,
+   "cached_input_per_mtok": null,
+   "pattern": "^command-r(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "embed-english-v3.0",
+   "provider": "cohere",
+   "input_per_mtok": 0.1,
+   "output_per_mtok": 0,
+   "cached_input_per_mtok": null,
+   "pattern": "^embed-english-v3\\.0(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "grok-4",
+   "provider": "xai",
+   "input_per_mtok": 3,
+   "output_per_mtok": 15,
+   "cached_input_per_mtok": 0.75,
+   "pattern": "^grok-4(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "grok-3-mini",
+   "provider": "xai",
+   "input_per_mtok": 0.3,
+   "output_per_mtok": 0.5,
+   "cached_input_per_mtok": 0.075,
+   "pattern": "^grok-3-mini(-\\d{4}-\\d{2}-\\d{2}|-\\d{8}|-latest|-preview)?$"
+  },
+  {
+   "model": "self-hosted (Ollama, vLLM, llama.cpp)",
+   "provider": "local",
+   "input_per_mtok": 0,
+   "output_per_mtok": 0,
+   "cached_input_per_mtok": null,
+   "pattern": "^[a-z0-9._-]+:[a-z0-9._-]+$"
+  }
+ ]
+}
