@@ -102,3 +102,14 @@ async def test_deleting_a_project_removes_its_data(people: People, project: Proj
     )
     assert (await people.admin.delete(project.base)).status_code == 204
     assert (await people.admin.get(project.base)).status_code == 404
+
+
+async def test_the_browser_may_use_every_method_the_api_serves(http: httpx.AsyncClient) -> None:
+    """A missing method in the CORS policy only shows up in a browser, as a network error."""
+    for method in ("GET", "POST", "PUT", "PATCH", "DELETE"):
+        response = await http.options(
+            "/api/v1/projects/00000000-0000-0000-0000-000000000000/prices",
+            headers={"origin": "http://localhost:3210", "access-control-request-method": method},
+        )
+        assert response.status_code == 200, method
+        assert method in response.headers["access-control-allow-methods"]
