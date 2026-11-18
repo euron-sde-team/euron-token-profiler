@@ -180,3 +180,10 @@ async def test_viewers_can_read_dashboards(people: People, project: Project) -> 
     response = await people.viewer.get(f"{project.base}/metrics/overview", range="24h")
     assert response.status_code == 200
     await asyncio.sleep(0)
+
+
+async def test_a_trace_that_just_arrived_is_in_the_relative_window(project: Project) -> None:
+    t = trace_id()
+    await project.send([span(t, "now", started=datetime.now(UTC))])
+    page = await project.get("/traces", range="1h")
+    assert [item["id"] for item in page["items"]] == [t]

@@ -46,7 +46,9 @@ async def list_traces(
     window_start, window_end = resolve_window(range, start, end, now=datetime.now(UTC))
     filters = TraceFilters(
         start=window_start,
-        end=window_end,
+        # A relative range is open ended: the list is not cached, and a trace that arrived a
+        # moment ago must show up even though the dashboards snap their window to 30 seconds.
+        end=window_end if (start is not None or end is not None) else None,
         status=status,
         query=q,
         model=model,
