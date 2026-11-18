@@ -1,0 +1,26 @@
+{
+  "name": "euron-token-profiler",
+  "private": true,
+  "description": "Euron TokenProfiler: LLM observability: traces, token and cost attribution per prompt, model, agent and tool, budgets and alerts.",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @tokenprofiler/web dev",
+    "lint": "pnpm -r --parallel lint",
+    "typecheck": "pnpm -r --parallel typecheck",
+    "test": "pnpm --filter @tokenprofiler/web test",
+    "build": "pnpm --filter @tokenprofiler/web build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "e2e": "pnpm --filter @tokenprofiler/e2e test",
+    "qa": "pnpm --filter @tokenprofiler/e2e qa",
+    "capture": "pnpm --filter @tokenprofiler/e2e capture"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10",
+    "prettier-plugin-tailwindcss": "0.8.1"
+  }
+}
