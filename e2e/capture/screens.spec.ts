@@ -17,10 +17,10 @@ mkdirSync(FRAMES, { recursive: true });
 
 let frame = 0;
 
-async function shot(page: Page, name: string): Promise<void> {
+async function shot(page: Page, name: string, keepScroll = false): Promise<void> {
   await settle(page);
   // Clicking inside a long page scrolls the app's own scroll area: start every picture at the top.
-  await page.evaluate(() => document.querySelector("main")?.scrollTo(0, 0));
+  if (!keepScroll) await page.evaluate(() => document.querySelector("main")?.scrollTo(0, 0));
   // The clicked control keeps a keyboard focus ring: the picture is of the page.
   await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
   await page.screenshot({ path: path.join(SHOTS, `${name}.png`) });
@@ -131,7 +131,9 @@ test("the web app, page by page", async ({ page }) => {
   await expect(page.getByLabel("Pattern").first()).toBeVisible();
   await page.getByRole("button", { name: "Test masking" }).click();
   await expect(page.getByRole("status").filter({ hasText: "masked" })).toBeVisible();
-  await shot(page, "13-settings");
+  // The privacy rules are the interesting part: bring that card to the top of the picture.
+  await page.getByRole("heading", { name: "Privacy" }).evaluate((el) => el.scrollIntoView());
+  await shot(page, "13-settings", true);
   await tourFrame(page, 2600);
 });
 

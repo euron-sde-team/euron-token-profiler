@@ -27,9 +27,16 @@ const BAR = { ok: "bg-success", warning: "bg-warning", exceeded: "bg-danger" } a
 
 function describeRule(rule: AlertRule): string {
   const info = RULE_METRIC[rule.metric];
-  const unit = info.unit === "USD" ? "$" : "";
-  const suffix = info.unit === "USD" ? "" : ` ${info.unit}`;
-  return `${info.label} ${rule.comparator} ${unit}${Number(rule.threshold)}${suffix} over ${rule.window_minutes} min`;
+  const value = Number(rule.threshold);
+  const shown =
+    info.unit === "USD"
+      ? `$${value}`
+      : info.unit === "%"
+        ? `${value}%`
+        : info.unit === "ms"
+          ? `${value} ms`
+          : String(value);
+  return `${info.label} ${rule.comparator} ${shown} over ${rule.window_minutes} min`;
 }
 
 function eventValue(event: AlertEvent): string {
@@ -53,7 +60,7 @@ function BudgetCard({
       <CardContent className="space-y-3">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="truncate text-[14px] font-semibold">{budget.name}</p>
+            <p className="text-[14px] font-semibold break-words">{budget.name}</p>
             <p className="text-muted-foreground text-xs">
               {BUDGET_PERIOD[budget.period]},{" "}
               {budget.scope === "project" ? BUDGET_SCOPE.project.toLowerCase() : budget.scope_value}

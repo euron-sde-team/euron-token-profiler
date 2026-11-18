@@ -19,7 +19,7 @@ export function NativeSelect({ className, ...props }: ComponentProps<"select">) 
 }
 
 export function Label({ className, ...props }: ComponentProps<"label">) {
-  return <label className={cn("text-foreground text-[13px] font-medium", className)} {...props} />;
+  return <label className={cn("text-foreground block text-[13px] font-medium", className)} {...props} />;
 }
 
 export function FieldHint({ className, ...props }: ComponentProps<"p">) {
