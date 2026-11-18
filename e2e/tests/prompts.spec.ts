@@ -24,13 +24,13 @@ test("a member saves a new prompt, promotes a version and an SDK can fetch it", 
   await page.goto("/prompts");
   await page.getByRole("button", { name: "New prompt" }).first().click();
   await page.getByLabel("Name").fill(name);
-  await page.getByLabel("Template").fill("Answer briefly: {{question}}");
+  await page.getByLabel("Template", { exact: true }).fill("Answer briefly: {{question}}");
   await page.getByLabel("Labels").fill("production");
   await page.getByRole("button", { name: "Save version" }).click();
   await expect(page.getByRole("heading", { level: 1, name })).toBeVisible();
 
   await page.getByRole("button", { name: "New version" }).click();
-  await page.getByLabel("Template").fill("Answer briefly and cite sources: {{question}}");
+  await page.getByLabel("Template", { exact: true }).fill("Answer briefly and cite sources: {{question}}");
   await page.getByRole("button", { name: "Save version" }).click();
   await expect(page.getByRole("region", { name: "Prompt versions" }).getByRole("row")).toHaveCount(3);
   await page.getByRole("button", { name: "Make production" }).click();

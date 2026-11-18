@@ -7,7 +7,7 @@ test("budgets show spend against limits and alert history", async ({ page }) => 
   await page.goto("/budgets");
   await expect(page.getByRole("heading", { level: 1, name: "Budgets and alerts" })).toBeVisible();
   await expect(page.getByRole("progressbar").first()).toBeVisible();
-  await expect(page.getByText("Research agent, weekly")).toBeVisible();
+  await expect(page.getByText("Research agent, weekly").first()).toBeVisible();
   await expect(page.getByRole("region", { name: "Alert rules" }).getByRole("row")).not.toHaveCount(1);
   await expect(page.getByRole("region", { name: "Alert history" })).toBeVisible();
 });

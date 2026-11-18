@@ -27,7 +27,7 @@ test("filter failures, open a trace and read its span tree", async ({ page }) =>
   await expect(spans.getByRole("listitem").first()).toBeVisible();
   await expect(spans.getByText("research-agent").first()).toBeVisible();
   await expect(spans.getByText("web_search").first()).toBeVisible();
-  await expect(page.getByText("Total cost").first()).toBeVisible();
+  await expect(page.getByText("Model calls")).toBeVisible();
 
   // Collapse the root: its subtree disappears, expanding brings it back.
   const rows = await spans.getByRole("listitem").count();
@@ -64,5 +64,5 @@ test("search finds a trace by user and the API agrees", async ({ page }) => {
 test("a trace id that does not exist says so", async ({ page }) => {
   await signIn(page, "admin");
   await page.goto("/traces/ffffffffffffffffffffffffffffffff");
-  await expect(page.getByText("Trace not found")).toBeVisible();
+  await expect(page.getByText("Trace not found").first()).toBeVisible();
 });

@@ -25,8 +25,7 @@ test("the overview shows two weeks of cost, tokens, latency and errors", async (
 test("switching project changes the numbers", async ({ page }) => {
   await signIn(page, "admin");
   const select = page.getByLabel("Project");
-  const options = await select.locator("option").allTextContents();
-  expect(options).toEqual(expect.arrayContaining(["Customer Copilot", "Internal Tools"]));
+  await expect(select.locator("option")).toHaveText(["Customer Copilot", "Internal Tools"]);
   await select.selectOption({ label: "Internal Tools" });
   await expect(page.getByText("Internal Tools", { exact: false }).first()).toBeVisible();
   await select.selectOption({ label: "Customer Copilot" });
