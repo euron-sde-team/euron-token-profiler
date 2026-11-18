@@ -143,7 +143,7 @@ TokenProfiler keeps the data where you run it, and answers the questions that co
 | Alerts      | Budgets per day, week or month (project, model, agent, tool or prompt); rules on errors, latency, spend, silence; webhooks |
 | Performance | Denormalised trace totals, partial indexes, bounded counts, cached aggregates, one statement per 400 spans                 |
 | Runs on     | Docker Compose with PostgreSQL 16, Valkey 8 and the Floci AWS emulator; ECS Fargate, RDS, ElastiCache on AWS               |
-| Tests       | 55 API unit, 42 API integration, 13 SDK, 39 web unit, 21 browser journeys, crawl of every page                             |
+| Tests       | 55 API unit, 44 API integration, 13 SDK, 39 web unit, 21 browser journeys, crawl of every page                             |
 
 ## 🖼️ Screenshots
 
