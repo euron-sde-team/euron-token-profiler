@@ -111,6 +111,7 @@ export function PromptDetailView() {
               xKey="version"
               yFormat={(v) => formatUsd(v)}
               yWidth={56}
+              decimals
               height={200}
               series={[{ key: "cost", name: "Cost per 1,000 calls", color: "var(--series-1)" }]}
             />

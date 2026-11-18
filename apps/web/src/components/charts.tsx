@@ -61,6 +61,8 @@ type TrendProps = {
   yFormat?: (value: number) => string;
   /** Width reserved for the y axis labels; wider by default when `yFormat` adds units. */
   yWidth?: number;
+  /** Allow fractional y ticks (money). Counts keep whole numbers only. */
+  decimals?: boolean;
   /** How a value reads in the tooltip; defaults to yFormat. */
   valueFormat?: (value: number) => string;
   legend?: boolean;
@@ -170,10 +172,10 @@ function XAxisFor({ xKey, xFormat }: Pick<TrendProps, "xKey" | "xFormat">) {
   );
 }
 
-function YAxisFor({ yFormat, yWidth }: Pick<TrendProps, "yFormat" | "yWidth">) {
+function YAxisFor({ yFormat, yWidth, decimals }: Pick<TrendProps, "yFormat" | "yWidth" | "decimals">) {
   return (
     <YAxis
-      allowDecimals={false}
+      allowDecimals={decimals ?? false}
       tickFormatter={yFormat ?? formatCompact}
       tick={axis}
       tickLine={false}
@@ -193,6 +195,7 @@ export function AreaTrend({
   xFormat,
   yFormat,
   yWidth,
+  decimals,
   valueFormat,
   legend = true,
   stacked = false,
@@ -212,7 +215,7 @@ export function AreaTrend({
           </defs>
           <CartesianGrid vertical={false} stroke="var(--border)" />
           <XAxisFor xKey={xKey} xFormat={xFormat} />
-          <YAxisFor yFormat={yFormat} yWidth={yWidth} />
+          <YAxisFor yFormat={yFormat} yWidth={yWidth} decimals={decimals} />
           <Tooltip
             content={<ChartTooltip xFormat={xFormat} valueFormat={valueFormat ?? yFormat ?? formatNumber} />}
             cursor={{ stroke: "var(--input)" }}
@@ -246,6 +249,7 @@ export function BarTrend({
   xFormat,
   yFormat,
   yWidth,
+  decimals,
   valueFormat,
   legend = true,
   stacked = false,
@@ -257,7 +261,7 @@ export function BarTrend({
         <BarChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }} accessibilityLayer={false}>
           <CartesianGrid vertical={false} stroke="var(--border)" />
           <XAxisFor xKey={xKey} xFormat={xFormat} />
-          <YAxisFor yFormat={yFormat} yWidth={yWidth} />
+          <YAxisFor yFormat={yFormat} yWidth={yWidth} decimals={decimals} />
           <Tooltip
             content={<ChartTooltip xFormat={xFormat} valueFormat={valueFormat ?? yFormat ?? formatNumber} />}
             cursor={{ fill: "var(--muted)" }}

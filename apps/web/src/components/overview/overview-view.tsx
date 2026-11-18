@@ -112,6 +112,7 @@ function Charts({ data }: { data: Overview }) {
             stacked
             yFormat={(v) => formatUsd(v)}
             yWidth={56}
+            decimals
             series={data.top_models.map((model, index) => ({
               key: model,
               name: model,
