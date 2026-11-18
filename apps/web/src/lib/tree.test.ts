@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { buildRows, timelineTicks } from "@/lib/tree";
+import { buildRows, labelPlacement, timelineTicks } from "@/lib/tree";
 import type { Span } from "@/lib/types";
 
 function span(id: string, parent: string | null, start: number, end: number): Span {
@@ -62,5 +62,20 @@ describe("timelineTicks", () => {
   it("labels quarters of the duration", () => {
     expect(timelineTicks(4000).map((t) => t.label)).toEqual(["0 ms", "1.0 s", "2.0 s", "3.0 s", "4.0 s"]);
     expect(timelineTicks(400)[2]).toEqual({ at: 0.5, label: "200 ms" });
+  });
+});
+
+describe("labelPlacement", () => {
+  it("puts the label after a short bar with room to its right", () => {
+    expect(labelPlacement(0.1, 0.2)).toBe("after");
+  });
+
+  it("puts the label before a late bar", () => {
+    expect(labelPlacement(0.7, 0.28)).toBe("before");
+  });
+
+  it("keeps the label on a bar that spans the track, never in the name column", () => {
+    expect(labelPlacement(0, 1)).toBe("inside");
+    expect(labelPlacement(0.1, 0.85)).toBe("inside");
   });
 });

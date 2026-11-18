@@ -1,13 +1,21 @@
 "use client";
 
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 
 import { cn } from "@/lib/cn";
 import { formatDuration, formatUsd } from "@/lib/format";
 import { SPAN_COLOR, SPAN_KIND } from "@/lib/labels";
-import { buildRows, timelineTicks } from "@/lib/tree";
+import { buildRows, labelPlacement, timelineTicks, type LabelPlacement } from "@/lib/tree";
 import type { Span } from "@/lib/types";
+
+/** Horizontal position of a bar's label, as percentages of the track. */
+function labelStyle(offset: number, width: number, placement: LabelPlacement): CSSProperties {
+  const end = (offset + width) * 100;
+  if (placement === "after") return { left: `${end + 0.8}%` };
+  if (placement === "before") return { right: `${(1 - offset) * 100 + 0.8}%` };
+  return { right: `${100 - end + 0.6}%` };
+}
 
 /**
  * The span tree beside a timeline: each row is a span, indented by depth, with a bar placed
@@ -64,6 +72,7 @@ export function Waterfall({
           const active = selected === span.id;
           const failed = span.status === "error";
           const hasChildren = row.descendants > 0;
+          const placement = labelPlacement(row.offset, row.width);
           return (
             <li key={span.id} className="border-border border-b last:border-b-0">
               <div
@@ -129,12 +138,13 @@ export function Waterfall({
                     }}
                   />
                   <span
-                    className="text-muted-foreground tabular absolute top-2.5 text-[11px] leading-4 whitespace-nowrap"
-                    style={
-                      row.offset + row.width > 0.78
-                        ? { right: `${(1 - row.offset) * 100 + 0.8}%` }
-                        : { left: `${(row.offset + row.width) * 100 + 0.8}%` }
-                    }
+                    className={cn(
+                      "tabular absolute top-2.5 text-[11px] leading-4 whitespace-nowrap",
+                      placement === "inside"
+                        ? "bg-card text-foreground rounded-[3px] px-1 font-medium"
+                        : "text-muted-foreground",
+                    )}
+                    style={labelStyle(row.offset, row.width, placement)}
                   >
                     {formatDuration(span.duration_ms)}
                     {Number(span.total_cost) > 0 ? ` - ${formatUsd(span.total_cost)}` : ""}

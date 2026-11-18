@@ -68,3 +68,19 @@ export function timelineTicks(durationMs: number): { at: number; label: string }
     return { at, label: ms < 1000 ? `${Math.round(ms)} ms` : `${(ms / 1000).toFixed(ms < 10_000 ? 1 : 0)} s` };
   });
 }
+
+/** Share of the timeline a "8.8 s - $0.013" label can take; sized for a phone-width track. */
+const LABEL_SHARE = 0.3;
+
+export type LabelPlacement = "after" | "before" | "inside";
+
+/**
+ * Where a bar's duration and cost label goes. Prefer the free space after the bar, then the
+ * free space before it. A bar that spans most of the track leaves neither, so the label sits on
+ * the bar itself: putting it before the bar would push it left across the span-name column.
+ */
+export function labelPlacement(offset: number, width: number): LabelPlacement {
+  if (offset + width + LABEL_SHARE <= 1) return "after";
+  if (offset >= LABEL_SHARE) return "before";
+  return "inside";
+}
