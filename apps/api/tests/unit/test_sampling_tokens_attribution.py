@@ -28,7 +28,7 @@ def test_token_estimate() -> None:
     assert estimate_tokens("a") == 1
     assert estimate_tokens("x" * 400) == 100
     assert estimate_tokens({"k": "v" * 100}) > 25
-    assert estimate_tokens("你好世界") == 4
+    assert estimate_tokens("".join(chr(c) for c in (0x4F60, 0x597D, 0x4E16, 0x754C))) == 4
 
 
 def test_attribution_flows_down_the_tree() -> None:
