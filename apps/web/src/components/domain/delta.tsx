@@ -7,11 +7,15 @@ export function Delta({
   current,
   previous,
   higherIsBetter = false,
+  comparable = true,
 }: {
   current: number;
   previous: number;
   higherIsBetter?: boolean;
+  /** False when the previous period holds too little data for a percentage to mean anything. */
+  comparable?: boolean;
 }) {
+  if (!comparable) return <span className="text-muted-foreground">no earlier data to compare</span>;
   if (previous === 0 && current === 0) return <span className="text-muted-foreground">no change</span>;
   if (previous === 0) return <span className="text-muted-foreground">new this period</span>;
   const change = (current - previous) / previous;

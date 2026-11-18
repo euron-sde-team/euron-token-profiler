@@ -12,7 +12,7 @@ test("prompts show their versions, usage and what each version cost", async ({ p
   await expect(page.getByRole("heading", { level: 1, name: "support-triage" })).toBeVisible();
   const versions = page.getByRole("region", { name: "Prompt versions" });
   await expect(versions.getByRole("row")).toHaveCount(4);
-  await expect(page.getByText("Cost per call by version")).toBeVisible();
+  await expect(page.getByText("Cost per 1,000 calls by version")).toBeVisible();
   await expect(
     page.getByRole("region", { name: /Template of version 3/ }).or(page.getByLabel("Template of version 3")),
   ).toBeVisible();

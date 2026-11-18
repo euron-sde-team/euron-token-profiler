@@ -23,13 +23,15 @@ import type { Overview } from "@/lib/types";
 
 function Kpis({ data }: { data: Overview }) {
   const { current: now, previous: before } = data;
+  // A period that began before the first trace was recorded has nothing to compare with.
+  const comparable = before.traces >= Math.max(5, now.traces * 0.1);
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
       <StatCard
         label="Traces"
         value={formatNumber(now.traces)}
         icon={<Activity />}
-        caption={<Delta current={now.traces} previous={before.traces} higherIsBetter />}
+        caption={<Delta current={now.traces} previous={before.traces} higherIsBetter comparable={comparable} />}
       />
       <StatCard
         label="Cost"
@@ -37,7 +39,7 @@ function Kpis({ data }: { data: Overview }) {
         icon={<Coins />}
         caption={
           <>
-            <Delta current={Number(now.cost)} previous={Number(before.cost)} />
+            <Delta current={Number(now.cost)} previous={Number(before.cost)} comparable={comparable} />
             <span className="block">{formatUsd(now.avg_cost_per_trace)} per trace</span>
           </>
         }
@@ -51,6 +53,7 @@ function Kpis({ data }: { data: Overview }) {
             <Delta
               current={now.input_tokens + now.output_tokens}
               previous={before.input_tokens + before.output_tokens}
+              comparable={comparable}
             />
             <span className="block">
               {formatTokens(now.input_tokens)} in, {formatTokens(now.output_tokens)} out
@@ -64,7 +67,7 @@ function Kpis({ data }: { data: Overview }) {
         icon={<Gauge />}
         caption={
           <>
-            <Delta current={now.p95_ms} previous={before.p95_ms} />
+            <Delta current={now.p95_ms} previous={before.p95_ms} comparable={comparable} />
             <span className="block">
               p50 {formatDuration(now.p50_ms)}, p99 {formatDuration(now.p99_ms)}
             </span>
@@ -77,7 +80,7 @@ function Kpis({ data }: { data: Overview }) {
         icon={<AlertTriangle />}
         caption={
           <>
-            <Delta current={now.error_rate} previous={before.error_rate} />
+            <Delta current={now.error_rate} previous={before.error_rate} comparable={comparable} />
             <span className="block">{formatNumber(now.errors)} failed traces</span>
           </>
         }
@@ -301,7 +304,7 @@ export function OverviewView() {
             {environments.length > 1 ? (
               <NativeSelect
                 aria-label="Environment"
-                className="h-8 w-40 text-[13px]"
+                className="h-8 w-48 text-[13px]"
                 value={environment ?? ""}
                 onChange={(event) => update({ environment: event.target.value || null })}
               >

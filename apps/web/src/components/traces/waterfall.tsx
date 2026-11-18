@@ -46,7 +46,7 @@ export function Waterfall({
           {ticks.map((tick) => (
             <span
               key={tick.at}
-              className="text-subtle tabular absolute top-2 -translate-x-1/2 first:translate-x-0 last:-translate-x-full"
+              className="text-subtle tabular absolute top-2 -translate-x-1/2 whitespace-nowrap first:translate-x-0 last:-translate-x-full"
               style={{ left: `${tick.at * 100}%` }}
             >
               {tick.label}

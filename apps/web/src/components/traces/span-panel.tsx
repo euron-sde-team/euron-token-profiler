@@ -23,7 +23,7 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="min-w-0">
       <dt className="text-muted-foreground text-[11.5px]">{label}</dt>
-      <dd className="tabular truncate text-[13px] font-medium">{value}</dd>
+      <dd className="tabular text-[13px] font-medium break-words">{value}</dd>
     </div>
   );
 }
@@ -93,14 +93,19 @@ export function SpanPanel({ span }: { span: Span }) {
           </TabsList>
           <TabsContent value="input">
             {span.input ? (
-              <CodeBlock code={prettyPayload(span.input)} label="Span input" className="max-h-80 overflow-auto" />
+              <CodeBlock code={prettyPayload(span.input)} label="Span input" wrap className="max-h-80 overflow-auto" />
             ) : (
               <p className="text-muted-foreground text-[13px]">No input was stored for this span.</p>
             )}
           </TabsContent>
           <TabsContent value="output">
             {span.output ? (
-              <CodeBlock code={prettyPayload(span.output)} label="Span output" className="max-h-80 overflow-auto" />
+              <CodeBlock
+                code={prettyPayload(span.output)}
+                label="Span output"
+                wrap
+                className="max-h-80 overflow-auto"
+              />
             ) : (
               <p className="text-muted-foreground text-[13px]">
                 {span.status === "error"

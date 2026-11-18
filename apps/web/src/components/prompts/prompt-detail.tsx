@@ -54,7 +54,7 @@ export function PromptDetailView() {
     .filter((v) => v.usage.calls > 0)
     .map((v) => ({
       version: `v${v.version}`,
-      cost: v.usage.calls ? Number(v.usage.cost) / v.usage.calls : 0,
+      cost: v.usage.calls ? (Number(v.usage.cost) / v.usage.calls) * 1000 : 0,
       tokens: v.usage.avg_tokens,
     }));
 
@@ -101,18 +101,18 @@ export function PromptDetailView() {
       {chart.length > 1 ? (
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Cost per call by version</CardTitle>
+            <CardTitle>Cost per 1,000 calls by version</CardTitle>
             <CardDescription>How each version compares when it ran in this range.</CardDescription>
           </CardHeader>
           <CardContent>
             <BarTrend
-              label="Average cost per call for each prompt version"
+              label="Cost per 1,000 calls for each prompt version"
               data={chart}
               xKey="version"
               yFormat={(v) => formatUsd(v)}
               yWidth={56}
               height={200}
-              series={[{ key: "cost", name: "Cost per call", color: "var(--series-1)" }]}
+              series={[{ key: "cost", name: "Cost per 1,000 calls", color: "var(--series-1)" }]}
             />
           </CardContent>
         </Card>

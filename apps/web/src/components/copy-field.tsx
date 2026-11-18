@@ -50,11 +50,25 @@ export function CopyField({ value, label }: { value: string; label: string }) {
 }
 
 /** A multi-line snippet (SDK, curl, CLI) with a copy button. It scrolls sideways when wide. */
-export function CodeBlock({ code, label, className }: { code: string; label: string; className?: string }) {
+export function CodeBlock({
+  code,
+  label,
+  className,
+  wrap = false,
+}: {
+  code: string;
+  label: string;
+  className?: string;
+  /** Wrap long lines (stored payloads) instead of scrolling sideways (commands and snippets). */
+  wrap?: boolean;
+}) {
   return (
     <div className={cn("border-border bg-muted/60 relative rounded-lg border", className)}>
       <pre
-        className="scroll-quiet overflow-x-auto p-3 pr-24 font-mono text-[12px] leading-relaxed"
+        className={cn(
+          "scroll-quiet p-3 pr-24 font-mono text-[12px] leading-relaxed",
+          wrap ? "break-words whitespace-pre-wrap" : "overflow-x-auto",
+        )}
         aria-label={label}
         tabIndex={0}
       >

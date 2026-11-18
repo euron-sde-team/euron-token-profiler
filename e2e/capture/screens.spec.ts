@@ -19,6 +19,8 @@ let frame = 0;
 
 async function shot(page: Page, name: string): Promise<void> {
   await settle(page);
+  // Clicking inside a long page scrolls the app's own scroll area: start every picture at the top.
+  await page.evaluate(() => document.querySelector("main")?.scrollTo(0, 0));
   // The clicked control keeps a keyboard focus ring: the picture is of the page.
   await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
   await page.screenshot({ path: path.join(SHOTS, `${name}.png`) });
@@ -59,7 +61,7 @@ async function pickTrace(page: Page, agent: string, spans: [number, number]): Pr
 test("the web app, page by page", async ({ page }) => {
   await signIn(page, "admin");
 
-  await page.goto("/overview?range=14d");
+  await page.goto("/overview?range=7d");
   await expect(page.locator(".recharts-bar-rectangle").first()).toBeVisible();
   await expect(page.getByText("Top models")).toBeVisible();
   await expect(page.getByText("claude-sonnet-4-5").first()).toBeVisible();
@@ -92,7 +94,7 @@ test("the web app, page by page", async ({ page }) => {
   await tourFrame(page, 2200);
 
   await page.goto("/prompts/view?name=support-triage&range=14d");
-  await expect(page.getByText("Cost per call by version")).toBeVisible();
+  await expect(page.getByText("Cost per 1,000 calls by version")).toBeVisible();
   await expect(page.locator(".recharts-bar-rectangle").first()).toBeVisible();
   await shot(page, "06-prompt-versions");
   await tourFrame(page, 3000);
@@ -107,7 +109,7 @@ test("the web app, page by page", async ({ page }) => {
   await shot(page, "08-pricing");
 
   await page.goto("/agents?range=14d");
-  await expect(page.getByRole("region", { name: "Agent breakdown" }).getByRole("row").nth(4)).toBeVisible();
+  await expect(page.getByRole("region", { name: "Agent breakdown" }).getByRole("row").nth(3)).toBeVisible();
   await shot(page, "09-agents");
   await tourFrame(page, 2600);
   await page.getByRole("tab", { name: "Tools" }).click();
@@ -136,7 +138,7 @@ test("the web app, page by page", async ({ page }) => {
 test("dark theme", async ({ page }) => {
   await signIn(page, "admin");
   await page.evaluate(() => localStorage.setItem("tokenprofiler-theme", "dark"));
-  await page.goto("/overview?range=14d");
+  await page.goto("/overview?range=7d");
   await expect(page.locator(".recharts-bar-rectangle").first()).toBeVisible();
   await shot(page, "14-overview-dark");
   const research = await pickTrace(page, "support-agent", [5, 9]);

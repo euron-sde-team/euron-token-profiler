@@ -22,7 +22,7 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
   return (
     <div className="min-w-0">
       <dt className="text-muted-foreground text-[11.5px]">{label}</dt>
-      <dd className="tabular truncate text-[14px] font-semibold">{children}</dd>
+      <dd className="tabular text-[14px] font-semibold break-words">{children}</dd>
     </div>
   );
 }
