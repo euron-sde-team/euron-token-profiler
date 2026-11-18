@@ -22,12 +22,12 @@ TRUNCATED = "...[truncated]"
 
 BUILTIN_DETECTORS: dict[str, str] = {
     "email": r"(?<![\w.+-])[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}",
+    "credit_card": r"(?<![\d-])(?:\d[ -]?){12,18}\d(?![\d-])",
+    "ssn": r"(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)",
     "phone": (
         r"(?<![\w+])(?:\+\d{1,3}[ -]?)?(?:\(\d{2,4}\)[ -]?|\d{2,4}[ -])"
         r"\d{3,4}[ -]\d{3,4}(?!\w)"
     ),
-    "credit_card": r"(?<![\d-])(?:\d[ -]?){12,18}\d(?![\d-])",
-    "ssn": r"(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)",
     "ipv4": r"(?<![\d.])(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)(?![\d.])",
     "api_key": (
         r"\b(?:sk-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{30,}"
@@ -35,7 +35,7 @@ BUILTIN_DETECTORS: dict[str, str] = {
     ),
     "jwt": r"\beyJ[A-Za-z0-9_-]{8,}\.eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\b",
 }
-DEFAULT_DETECTORS = ("email", "phone", "credit_card", "ssn", "api_key", "jwt")
+DEFAULT_DETECTORS = ("email", "credit_card", "ssn", "phone", "api_key", "jwt")
 
 # A group that is repeated and itself contains a repeat is how catastrophic backtracking
 # is written: (a+)+, (a*)*, (.+)*, (\w+\s?)+ ...
@@ -144,8 +144,10 @@ def build_redactor(
     redact_metadata: bool,
 ) -> Redactor:
     rules: list[Rule] = []
-    for name in detectors:
-        if name in BUILTIN_DETECTORS:
+    # Canonical order, whatever order the project lists them in: a card number must be
+    # recognised before the phone pattern can claim a run of its digits.
+    for name in BUILTIN_DETECTORS:
+        if name in detectors:
             accept = (
                 (lambda s: luhn_valid(re.sub(r"\D", "", s)) and len(re.sub(r"\D", "", s)) >= 13)
                 if name == "credit_card"

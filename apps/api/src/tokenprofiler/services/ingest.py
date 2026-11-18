@@ -174,6 +174,7 @@ class IngestService:
         spans: list[SpanIn],
         declared: TraceIn | None,
         redactor: Redactor,
+        root_row: dict[str, Any] | None,
     ) -> dict[str, Any]:
         now = datetime.now(UTC)
         started = min((s.started_at for s in spans), default=None)
@@ -207,12 +208,14 @@ class IngestService:
             "ended_at": ended,
             "duration_ms": _millis(started, ended),
             "status": "error" if any(s.status == "error" for s in spans) else "ok",
-            "input": redactor.payload(
-                declared.input if declared and declared.input else (root.input if root else None)
-            ),
-            "output": redactor.payload(
-                declared.output if declared and declared.output else (root.output if root else None)
-            ),
+            # A trace shows its root span's payloads. They were masked with the span, so they
+            # are reused as stored rather than masked (and counted) a second time.
+            "input": redactor.payload(declared.input)
+            if declared and declared.input is not None
+            else (root_row["input"] if root_row else None),
+            "output": redactor.payload(declared.output)
+            if declared and declared.output is not None
+            else (root_row["output"] if root_row else None),
             "metadata": redactor.metadata(declared.metadata if declared else {}),
         }
 
@@ -239,13 +242,24 @@ class IngestService:
         seen_prompts: set[tuple[str, int]] = set()
         for trace_id in sorted(kept):
             spans = spans_by_trace.get(trace_id, [])
+            rows = {s.span_id: self._span_row(project.id, s, redactor, book) for s in spans}
+            roots = sorted((s for s in spans if s.parent_id is None), key=lambda s: s.started_at)
             trace_rows.append(
-                self._trace_row(project.id, trace_id, spans, declared.get(trace_id), redactor)
+                self._trace_row(
+                    project.id,
+                    trace_id,
+                    spans,
+                    declared.get(trace_id),
+                    redactor,
+                    rows[roots[0].span_id] if roots else None,
+                )
             )
-            for span in spans:
-                span_rows.append(self._span_row(project.id, span, redactor, book))
-                if span.prompt_name and span.prompt_version:
-                    seen_prompts.add((span.prompt_name[:120], span.prompt_version))
+            span_rows.extend(rows.values())
+            seen_prompts.update(
+                (s.prompt_name[:120], s.prompt_version)
+                for s in spans
+                if s.prompt_name and s.prompt_version
+            )
 
         if trace_rows:
             trace_ids = [row["id"] for row in trace_rows]

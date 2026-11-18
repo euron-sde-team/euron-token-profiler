@@ -32,6 +32,9 @@ from tokenprofiler.services.projects import ProjectService
 from tokenprofiler.services.prompts import PromptService
 from tokenprofiler.services.users import UserService
 
+# Tests shrink the workload; the demo uses the full two weeks.
+VOLUME_SCALE = 1.0
+
 PEOPLE = [
     ("admin@example.com", "Ada Admin", Role.ADMIN),
     ("maya@example.com", "Maya Chen", Role.MEMBER),
@@ -226,7 +229,13 @@ async def _seed(container: Container, password: str) -> str:
         ),
         (tools, 29, 70, {"review": 0.55, "summarize": 0.45}),
     ):
-        batches = generate(seed=seed_value, now=now, days=14, per_weekday=per_day, flows=flows)
+        batches = generate(
+            seed=seed_value,
+            now=now,
+            days=14,
+            per_weekday=max(1, round(per_day * VOLUME_SCALE)),
+            flows=flows,
+        )
         for batch in batches:
             async with container.db.session() as session:
                 result = await IngestService(container, session).ingest(

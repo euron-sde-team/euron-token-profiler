@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 
 from sqlalchemy import func, select, update
-from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy.dialects.postgresql import distinct_on, insert
 
 from tokenprofiler.models import PromptVersion
 from tokenprofiler.repositories.base import Repository
@@ -23,7 +23,7 @@ class PromptRepository(Repository):
         latest = (
             select(PromptVersion)
             .where(PromptVersion.project_id == project_id)
-            .distinct(PromptVersion.name)
+            .ext(distinct_on(PromptVersion.name))
             .order_by(PromptVersion.name, PromptVersion.version.desc())
             .subquery()
         )

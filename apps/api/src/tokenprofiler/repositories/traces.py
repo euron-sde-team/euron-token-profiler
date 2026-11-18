@@ -12,6 +12,7 @@ from typing import Any
 from sqlalchemy import (
     ColumnElement,
     String,
+    Text,
     and_,
     bindparam,
     delete,
@@ -91,7 +92,7 @@ def _conditions(project_id: uuid.UUID, f: TraceFilters) -> list[ColumnElement[bo
         (Trace.tags, f.tag),
     ):
         if value:
-            conditions.append(column.contains(literal([value], ARRAY(String))))
+            conditions.append(column.contains(literal([value], ARRAY(Text))))
     if f.environment:
         conditions.append(Trace.environment == f.environment)
     if f.user_id:
