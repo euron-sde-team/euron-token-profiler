@@ -26,7 +26,18 @@ body:
     id: area
     attributes:
       label: Area
-      options: [Ingest (native), Ingest (OTLP), Python SDK, Dashboards, Traces, Prompts, Budgets and alerts, Retention, Not sure]
+      options:
+        [
+          Ingest (native),
+          Ingest (OTLP),
+          Python SDK,
+          Dashboards,
+          Traces,
+          Prompts,
+          Budgets and alerts,
+          Retention,
+          Not sure,
+        ]
     validations:
       required: true
   - type: input
